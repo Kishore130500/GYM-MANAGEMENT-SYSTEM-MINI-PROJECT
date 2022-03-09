@@ -1,3 +1,65 @@
+<?php
+  include 'connect.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8 Fitness Centre</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><body>
+
+<body>        
+                <div class="container">
+                  
+
+                  <div class="card">
+                   <div class="face face1">
+                     <div class="content">
+                       
+                       <h3><i>Gym memebers please click here to login</i></h3>
+                       <a href="member_login.php" class="stretched-link"></a>
+                     </div>
+                   </div>
+
+                   <div class="face face2">
+                     <h2>Members</h2>
+                   </div>
+                 </div>
+                 <div class="card">
+                   <div class="face face1">
+                     <div class="content">
+                      
+                       <h3><i>Gym trainers please click here to login</i></h3>
+                       <a href="trainer_login.php" class="stretched-link"></a>
+                     </div>
+                   </div>
+                   <div class="face face2">
+                     <h2>Trainers</h2>
+                   </div>
+                 </div>
+                </div>
+                
+               
+                   
+                </div>
+    
+            
+              
+            
+                </div>
+                
+              </div>
+            
+          
+        
+</body>
+
+
+<style>
 @import url('http://fonts.googleapis.com/css?family=Poppins');
 *{
     margin: 0;
@@ -93,4 +155,7 @@ body{
     font-size: 2em;
 }
 
+  </style>
   
+  
+</html>
