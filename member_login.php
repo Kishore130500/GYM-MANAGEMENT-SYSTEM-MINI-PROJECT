@@ -1,9 +1,54 @@
+<?php
+  include 'connect.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G8 Fitness Centre</title>
+</head>
+<body>
+    <form action="member_after_login.php" method="post">
+    <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" style="
+			margin-left: 37%; margin-top: 28%;" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <input id="user" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                   
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In">
+                    </div>
+                    
+            </form>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
 body{
 	margin:0;
 	color:#6a6f8c;
-	background:#c4c592;
+	background-image: url(images/colors.jpg);
+    background-repeat: no-repeat;
+	background-size: cover;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
+
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
 .clearfix:after{clear:both;display:block}
@@ -15,7 +60,8 @@ a{color:inherit;text-decoration:none}
 	max-width:525px;
 	min-height:670px;
 	position:relative;
-	background:url(https://images.dailyhive.com/20160608100328/Gym.jpg) no-repeat center ;
+	background:url(images/Gym.jpg) no-repeat center ;
+	background-size: cover;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 .login-html{
@@ -50,7 +96,7 @@ a{color:inherit;text-decoration:none}
 	font-size:22px;
 	margin-right:15px;
 	padding-bottom:5px;
-	margin:0 15px 10px 0;
+	margin: 0 15px 10px 0;
 	display:inline-block;
 	border-bottom:2px solid transparent;
 }
@@ -148,3 +194,7 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
 }
+
+</style>
+
+</html>
