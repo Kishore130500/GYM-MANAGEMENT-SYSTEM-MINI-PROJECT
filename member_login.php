@@ -14,8 +14,9 @@
     <form action="member_after_login.php" method="post">
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" style="
+			margin-left: 37%; margin-top: 28%;" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
             <div class="login-form">
                 <div class="sign-in-htm">
                     <div class="group">
@@ -26,44 +27,13 @@
                         <label for="pass" class="label">Password</label>
                         <input id="pass" type="password" class="input" data-type="password">
                     </div>
-                    <div class="group">
-                        <input id="check" type="checkbox" class="check" checked>
-                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                    </div>
+                   
                     <div class="group">
                         <input type="submit" class="button" value="Sign In">
                     </div>
-                    <div class="hr"></div>
-                    <div class="foot-lnk">
-                        <a href="#forgot">Forgot Password?</a>
-                    </div>
-                </div>
+                    
             </form>
-                <div class="sign-up-htm">
-                    <div class="group">
-                        <label for="user" class="label">Username</label>
-                        <input id="user" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Repeat Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Email Address</label>
-                        <input id="pass" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="button" value="Sign Up">
-                    </div>
-                    <div class="hr"></div>
-                    <div class="foot-lnk">
-                        <label for="tab-1">Already Member?</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -78,6 +48,7 @@ body{
 	background-size: cover;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
+
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
 .clearfix:after{clear:both;display:block}
@@ -125,7 +96,7 @@ a{color:inherit;text-decoration:none}
 	font-size:22px;
 	margin-right:15px;
 	padding-bottom:5px;
-	margin:0 15px 10px 0;
+	margin: 0 15px 10px 0;
 	display:inline-block;
 	border-bottom:2px solid transparent;
 }
