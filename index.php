@@ -18,8 +18,9 @@
 
     
 <nav class="navbar navbar-expand-lg navbar-dark d-flex justify-content-center" style="background-color:#020228">
-  <a class="navbar-brand" href="#">
-    <!--<img src="icon3.jpg" width="40" height="40" alt="">-->G8 Fitness Club
+  <a class="navbar-brand nav-link" href="#">
+ <img src="images/icon5.png" style="width: 40px;  height: 29px;"> G8 Fitness Club
+    <!--<img src="icon3.jpg" width="40" height="40" alt="">-->
    </a>
 </nav>
    <!--

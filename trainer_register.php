@@ -1,71 +1,92 @@
-
 <?php
-//This script will handle login
-session_start();
-
-// check if the user is already logged in
-if(isset($_SESSION['username']))
-{
-    header("location: trainer_after_login.php");
-    exit;
-}
 require_once "connect.php";
 
-$username = $password = "";
-$err = "";
+$username = $password = $confirm_password = "";
+$username_err = $password_err = $confirm_password_err = "";
 
-// if request method is post
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(empty(trim($_POST['username'])) || empty(trim($_POST['password'])))
-    {
-        $err = "Please enter username + password";
+
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Username cannot be blank";
     }
     else{
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
-    }
+        $sql = "SELECT id FROM tr_login WHERE username = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        if($stmt)
+        {
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
 
+            // Set the value of param username
+            $param_username = trim($_POST['username']);
 
-if(empty($err))
-{
-    $sql = "SELECT id, username, password FROM tr_login WHERE username = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $param_username);
-    $param_username = $username;
-    
-    
-    // Try to execute this statement
-    if(mysqli_stmt_execute($stmt)){
-        mysqli_stmt_store_result($stmt);
-        if(mysqli_stmt_num_rows($stmt) == 1)
+            // Try to execute this statement
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt) == 1)
                 {
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt))
-                    {
-                        if(password_verify($password, $hashed_password))
-                        {
-                            // this means the password is corrct. Allow user to login
-                            session_start();
-                            $_SESSION["username"] = $username;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["loggedin"] = true;
-
-                            //Redirect user to welcome page
-                            header("location: trainer_after_login.php");
-                            
-                        }
-                    }
-
+                    $username_err = "This username is already taken"; 
                 }
-
+                else{
+                    $username = trim($_POST['username']);
+                }
+            }
+            else{
+                echo "Something went wrong";
+            }
+        }
     }
-}    
+
+    mysqli_stmt_close($stmt);
 
 
+// Check for password
+if(empty(trim($_POST['password']))){
+    $password_err = "Password cannot be blank";
+}
+elseif(strlen(trim($_POST['password'])) < 5){
+    $password_err = "Password cannot be less than 5 characters";
+}
+else{
+    $password = trim($_POST['password']);
+}
+
+// Check for confirm password field
+if(trim($_POST['password']) !=  trim($_POST['confirm_password'])){
+    $password_err = "Passwords should match";
 }
 
 
+// If there were no errors, go ahead and insert into the database
+if(empty($username_err) && empty($password_err) && empty($confirm_password_err))
+{
+    $sql = "INSERT INTO tr_login (username, password) VALUES (?, ?)";
+    $stmt = mysqli_prepare($conn, $sql);
+    if ($stmt)
+    {
+        mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+
+        // Set these parameters
+        $param_username = $username;
+        $param_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Try to execute the query
+        if (mysqli_stmt_execute($stmt))
+        {
+            header("location: trainer_login.php");
+        }
+        else{
+            echo "Something went wrong... cannot redirect!";
+        }
+    }
+    mysqli_stmt_close($stmt);
+}
+mysqli_close($conn);
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,35 +100,31 @@ if(empty($err))
 <body>
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
-            <div class="login-form">
+        <input id="tab-1"  type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" style="margin-left: 39%; margin-top: 20%;">SIGN UP</label>
+        <input id="tab-2"  type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
 
-               <form action="" method="post">
+            <div class="login-form">            
+
+              <form action="" method="post">
                 <div class="sign-in-htm">
                     <div class="group">
-                        <label for="user" class="label">Username</label>
-                        <input type="text" name="username" class="input form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
+                        <label for="user" name="username" class="label">Username</label>
+                        <input type="text" class="input form-control" name="username" id="inputEmail4" placeholder="Email">
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password</label>
-                        <input type="password" name="password" class="input form-control" id="exampleInputPassword1" placeholder="Enter Password">
+                        <input input type="password" class="input form-control" name ="password" id="inputPassword4" placeholder="Password">
                     </div>
                     <div class="group">
-                        <input id="check" type="checkbox" class="check" checked>
-                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="btn btn-primary button" value="Sign In">
+                        <label for="pass" class="label">Repeat Password</label>
+                        <input type="password" class="input form-control" name ="confirm_password" id="inputPassword" placeholder="Confirm Password">
                     </div>
                     
-					<div class="hr"></div>
-                    <div class="foot-lnk">
-                     <a href="trainer_register.php" style="color: white;"> Create Account</a>
+                    <div class="group">
+                        <input type="submit" class="btn btn-primary button" value="Sign Up">
                     </div>
-                </div>
-
-                </form>
+                    
+              </form>
             </div>
         </div>
     </div>

@@ -48,7 +48,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
   <div class="navbar-collapse collapse">
   <ul class="navbar-nav ms-auto">
   <li class="nav-item active">
-        <a class="nav-link" href="#"> <img src="https://img.icons8.com/metro/26/000000/guest-male.png"> <?php echo "Welcome ". $_SESSION['username']?></a>
+        <a class="nav-link" href="#"> <img src="images/user2.png"> <?php echo "Welcome ". $_SESSION['username']?></a>
       </li>
   </ul>
   </div>
