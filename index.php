@@ -16,10 +16,10 @@
 
    <div style="position:absolute; left:0px; top:0px; width: 100%; height: 20em">
 
-    <!-- Image and text -->
+    
 <nav class="navbar navbar-expand-lg navbar-dark d-flex justify-content-center" style="background-color:#020228">
   <a class="navbar-brand" href="#">
-    <img src="/images/icon2.png" width="40" height="40" class="d-inline-block align-top" alt=""> G8 Fitness Club
+    <!--<img src="icon3.jpg" width="40" height="40" alt="">-->G8 Fitness Club
    </a>
 </nav>
    <!--
