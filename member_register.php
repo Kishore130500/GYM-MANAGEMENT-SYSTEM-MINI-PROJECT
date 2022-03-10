@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "connect.php";
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
@@ -73,7 +73,7 @@ if(empty($username_err) && empty($password_err) && empty($confirm_password_err))
         // Try to execute the query
         if (mysqli_stmt_execute($stmt))
         {
-            header("location: login.php");
+            header("location: member_login.php");
         }
         else{
             echo "Something went wrong... cannot redirect!";
@@ -125,7 +125,7 @@ mysqli_close($conn);
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
-                     <a href="login.php" style="color: white;"> Already Member?</a>
+                     <a href="member_login.php" style="color: white;"> Already Member?</a>
                     </div>
                 </div>
               </form>

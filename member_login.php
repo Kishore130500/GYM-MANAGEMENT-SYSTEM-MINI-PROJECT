@@ -1,5 +1,70 @@
+
 <?php
-  include 'connect.php';
+//This script will handle login
+session_start();
+
+// check if the user is already logged in
+if(isset($_SESSION['username']))
+{
+    header("location: member_after_login.php");
+    exit;
+}
+require_once "connect.php";
+
+$username = $password = "";
+$err = "";
+
+// if request method is post
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(empty(trim($_POST['username'])) || empty(trim($_POST['password'])))
+    {
+        $err = "Please enter username + password";
+    }
+    else{
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+    }
+
+
+if(empty($err))
+{
+    $sql = "SELECT id, username, password FROM mem_login WHERE username = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $param_username);
+    $param_username = $username;
+    
+    
+    // Try to execute this statement
+    if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        if(mysqli_stmt_num_rows($stmt) == 1)
+                {
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt))
+                    {
+                        if(password_verify($password, $hashed_password))
+                        {
+                            // this means the password is corrct. Allow user to login
+                            session_start();
+                            $_SESSION["username"] = $username;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["loggedin"] = true;
+
+                            //Redirect user to welcome page
+                            header("location: member_after_login.php");
+                            
+                        }
+                    }
+
+                }
+
+    }
+}    
+
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -9,38 +74,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G8 Fitness Centre</title>
+    <link rel="stylesheet" href="member.css">
 </head>
 <body>
-    <form action="member_after_login.php" method="post">
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" style="
-			margin-left: 37%; margin-top: 28%;" class="tab">Sign In</label>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
             <div class="login-form">
+
+               <form action="" method="post">
                 <div class="sign-in-htm">
                     <div class="group">
                         <label for="user" class="label">Username</label>
-                        <input id="user" type="text" class="input">
+                        <input type="text" name="username" class="input form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
+                        <input type="password" name="password" class="input form-control" id="exampleInputPassword1" placeholder="Enter Password">
                     </div>
-                   
                     <div class="group">
-                        <input type="submit" class="button" value="Sign In">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
                     </div>
-                    
-            </form>
-                
+                    <div class="group">
+                        <input type="submit" class="btn btn-primary button" value="Sign In">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                     <a href="member_register.php" style="color: white;"> Create Account</a>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
 </body>
 
-<style>
-body{
+  <style>
+    body{
 	margin:0;
 	color:#6a6f8c;
 	background-image: url(images/colors.jpg);
@@ -48,7 +120,6 @@ body{
 	background-size: cover;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
-
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
 .clearfix:after{clear:both;display:block}
@@ -96,7 +167,7 @@ a{color:inherit;text-decoration:none}
 	font-size:22px;
 	margin-right:15px;
 	padding-bottom:5px;
-	margin: 0 15px 10px 0;
+	margin:0 15px 10px 0;
 	display:inline-block;
 	border-bottom:2px solid transparent;
 }
@@ -194,7 +265,7 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
 }
-
-</style>
+ 
+  </style>
 
 </html>
